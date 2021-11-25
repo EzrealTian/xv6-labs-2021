@@ -12,9 +12,7 @@
 #include "user/user.h"
 
 
-int
-main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     int p[2];
     char buffer[1];
     pipe(p);
