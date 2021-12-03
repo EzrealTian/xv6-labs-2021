@@ -1,6 +1,10 @@
 {
     "files.associations": {
         "complex": "cpp",
-        "system_error": "cpp"
+        "system_error": "cpp",
+        "*.tcc": "c",
+        "istream": "c",
+        "ostream": "c",
+        "typeinfo": "c"
     }
 }
