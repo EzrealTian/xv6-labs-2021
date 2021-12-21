@@ -76,10 +76,21 @@ usertrap(void)
   if(p->killed)
     exit(-1);
 
-  // give up the CPU if this is a timer interrupt.
-  if(which_dev == 2)
+  // give up the CPU if this is a timer inteurrpt.
+  if(which_dev == 2) {
+    if (myproc()->alarminterval > 0) {
+      myproc()->tickscount += 1;
+      if (myproc()->alarminterval == myproc()->tickscount && myproc()->alarmlock == 0) {
+        myproc()->alarmlock = 1;
+        if ((myproc()->alarmtrapframe = kalloc()) == 0)
+          panic("panic alarmframe!");
+        memmove(myproc()->alarmtrapframe, myproc()->trapframe, 512);
+        myproc()->trapframe->epc = myproc()->fn;
+        myproc()->tickscount = 0;
+      }
+    }
     yield();
-
+  }
   usertrapret();
 }
 
